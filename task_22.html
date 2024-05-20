@@ -1,0 +1,276 @@
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+    integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+    crossorigin="anonymous"></script>
+<link rel="stylesheet"
+    href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<div id="page-wrapper">
+    <div id="content-wrapper">
+        <div id="header">
+            <span id="header-logo">Logo</span>
+            <span id="header-right-button">Поменять цвет</span>
+        </div>
+        <div id="content-block-top" style="background-color: rgb(28, 155, 0);">
+            <img src="./first_image.jpg">
+        </div>
+        <div id="content-block-bottom">
+            <div id="content-block-bottom-1">
+                <img src="./second_image.jpg">
+                <div>abcdef</div>
+            </div>
+            <div id="content-block-bottom-2">
+                <img id="content-block-bottom-2-img-1"
+                    src="./star-svgrepo-com.svg" width="60" height="60">
+                <img id="content-block-bottom-2-img-2"
+                    src="./star-svgrepo-com.svg" width="60" height="60">
+                <img id="content-block-bottom-2-img-3"
+                    src="./star-svgrepo-com.svg" width="60" height="60">
+            </div>
+            <div id="content-block-bottom-3">
+                <img src="./second_image.jpg">
+                <div>abcdef</div>
+            </div>
+            <div id="content-block-bottom-4">
+                <div id="content-block-bottom-4-title">ABCDEF</div>
+                <div id="content-block-bottom-4-text">Lorem ipsum dolor sit
+                    amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.</div>
+            </div>
+            <div id="content-block-bottom-5">
+                <img id="content-block-bottom-5-img"
+                    src="./share-button-svgrepo-com.svg" width="60" height="60">
+            </div>
+        </div>
+    </div>
+    <script>
+    $(function () {
+        const FIRST_IMAGE_SRC = "./first_image.jpg";
+        const SECOND_IMAGE_SRC = "./second_image.jpg";
+
+        $("#header-logo").click(function () {
+            $(this).addClass("inflated");
+            alert("Вы нажали логотип");
+        });
+
+        $("#content-block-bottom-1 img").click(function () {
+            $(this).attr("src", $(this).attr("src") == FIRST_IMAGE_SRC ? SECOND_IMAGE_SRC : FIRST_IMAGE_SRC);
+        });
+
+        $("#content-block-bottom-1 div").click(function () {
+            $(this).append('<div style="color: blue">abcdef\nabcdef</div>')
+        });
+
+        $("#content-block-bottom-4-title").click(function () {
+            $(this).css({"color": "red", "font-weight": "bold", "font-family": "Arial"});
+        });
+
+        $("#content-block-bottom-4-text").click(function () {
+            $(this).text("");
+        });
+
+        $("#header-right-button").click(function () {
+            $(this).toggleClass("button-clicked");
+        });
+
+        $("#content-block-top").click(function () {
+            if ($(this).hasClass("closed")) {
+                $(this).removeClass("closed");
+                $(this).children().toggle("clip");
+            } else $(this).addClass("closed");
+        });
+
+        $("#content-block-top img").click(function () {
+            $(this).toggle("clip");
+        });
+
+        $("#content-block-bottom-3 img").click(function () {
+            $(this).fadeOut();
+            setTimeout(() => {
+                $(this).show();
+            }, 2000);
+        });
+
+        $("#content-block-bottom-2-img-1").animate({ opacity: 0 }, 3000);
+        $("#content-block-bottom-2-img-2").addClass("inflated");
+
+        $("#content-block-bottom-5 img").click(function () {
+            alert("Страница перегружена");
+            window.location.reload();
+        });
+    })
+</script>
+    <style>
+    body {
+        margin: 0;
+    }
+
+    #page-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    #content-wrapper {
+        width: 1200px;
+        height: 1800px;
+    }
+
+    #header {
+        height: 2.5%;
+        background-color: green;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #header-logo {
+        margin-left: 20px;
+        border: 1px lightgray solid;
+        border-radius: 5px;
+        padding: 5px 10px 5px 10px;
+        background-color: white;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    #header-right-button {
+        margin-right: 20px;
+        border: 1px lightgray solid;
+        border-radius: 5px;
+        padding: 5px 10px 5px 10px;
+        background-color: rgb(155, 32, 32);
+        color: rgb(255, 255, 255);
+        user-select: none;
+        cursor: pointer;
+    }
+
+    #content-block-top {
+        height: 35%;
+        background-color: blue;
+    }
+
+    #content-block-top img {
+        cursor: pointer;
+        height: 100%;
+        width: 100%;
+    }
+
+    #content-block-bottom {
+        height: 62.5%;
+        background-color: red;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas:
+            "first second third"
+            "none fourth fifth";
+    }
+
+    #content-block-bottom-1 {
+        grid-area: first;
+        background-color: pink;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow-y: auto;
+    }
+
+    #content-block-bottom-1 * {
+        cursor: pointer;
+        min-height: 0;
+    }
+
+    #content-block-bottom-1 img {
+        flex-shrink: 0;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    #content-block-bottom-1 div {
+        max-width: 100%;
+        background-color: lightgray;
+        text-align: center;
+        white-space: pre;
+    }
+
+    #content-block-bottom-2 {
+        grid-area: second;
+        background-color: magenta;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px;
+    }
+
+    #content-block-bottom-3 {
+        grid-area: third;
+        background-color: brown;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow-y: auto;
+    }
+
+    #content-block-bottom-3 img {
+        cursor: pointer;
+        max-width: 100%;
+        max-height: 50%;
+    }
+
+    #content-block-bottom-3 div {
+        display: flex;
+        background-color: lightgray;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #content-block-bottom-4 {
+        grid-area: fourth;
+        background-color: yellowgreen;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 25px;
+    }
+
+    #content-block-bottom-4-title {
+        font-size: xx-large;
+        cursor: pointer;
+    }
+
+    #content-block-bottom-5 {
+        grid-area: fifth;
+        background-color: steelblue;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        justify-content: end;
+        padding: 25px;
+    }
+
+    #content-block-bottom-5 img {
+        cursor: pointer;
+    }
+
+    .inflated {
+        transform: scale(3.0);
+    }
+
+    #header-right-button.button-clicked {
+        background-color: white;
+        color: black;
+    }
+
+    @keyframes pulse { 
+        50% { opacity: 0; }
+    }
+
+    #content-block-bottom-2-img-3 {
+        animation: pulse .5s ease-out 2;
+        animation-iteration-count: infinite;
+    }
+</style>
